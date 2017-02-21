@@ -14,9 +14,22 @@ $(function(){
         $('.tab-content-body').parent().find('p').addClass('p-mobile');
         $('.wrap-mobile').on('click',function(){
             var wrap = $(this);
-            $('.tab-content-body').parent().find('p').removeClass('open');
-            wrap.parent().find('.p-mobile').toggleClass('open');
+            $('.tab-content-body').parent().find('.p-mobile').fadeOut(200,function(){
+                wrap.parent().find('.p-mobile').fadeIn(200);
+            });
         });
+        $('.nav-compare img').click(function(){
+            var el = $(this);
+            var item = el.data('item');
+            el.parent().find('.active').removeClass('active');
+            el.addClass('active');
+            el.parent().parent().find('.item').slideUp(400, function(){
+                el.parent().parent().find('.item').removeClass('active');
+                el.parent().parent().find('.item').slideDown(400, function(){
+                    el.parent().parent().find(item).addClass('active');
+                })
+            })
+        })
     }
     if (ancho < 1200) {
         

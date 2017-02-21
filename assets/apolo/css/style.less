@@ -148,7 +148,6 @@
 			}
 		}
 	}
-	/*media templates*/
 	@media (max-width: 991px) {
 		.main-nav{
 			top: 0;
@@ -1264,16 +1263,8 @@ body {
 								z-index: 80;
 								.transition(0.6s 0.15s);
 								&.p-mobile{
-									// opacity: 0;
-									height: 0px;
-									min-height: 0px;
-									overflow: hidden;
+									display: none;
 									.transition(0.6s 0.15s);
-									&.open{
-										opacity: 1;
-										height: auto;
-										min-height: 100px;
-									}
 								}
 							}
 						}
@@ -1328,6 +1319,8 @@ body {
 					.card{
 						border: none;
 						margin-bottom: 10px;
+						max-height: 250px !important;
+						overflow: hidden;
 						.card-header{
 							padding: 0;
 							background-color: white;
@@ -1340,6 +1333,11 @@ body {
 									.link-center,
 									.link-right{
 										padding-left: 20px;
+										.display();
+										.justify-content(center);
+										.align-items(center);
+										height: 50px;
+										padding: 5px 25px;
 									}
 									.link-left{
 									}
@@ -1354,21 +1352,38 @@ body {
 						}
 					}
 					.collapse{
+
 						.transition(0.5s);
 						.card-block{
+							padding: 2px;
 							.display();
+							.justify-content(center);
+							.flex-wrap(wrap);
 							.link-left,
 							.link-center,
 							.link-right{
-								.flex(1);
+								.flex(0);
+								.transition(0.6s);
+								position: relative;
+								opacity: 0;
+								height: 0;
+								overflow: hidden;
+								&.active{
+									.flex(1);
+									opacity: 1;
+									height: auto;
+								}
+								min-width: 100%;
 								padding: 5px;
 								div.img{
-									img{
-									}
+									display: none;
 								}
 								div.text{
+									height: auto;
 									p {
-										font-size: 14;
+										width: 100%;
+										font-size: 14px;
+										min-height: 100%;
 									}
 								}
 							}
@@ -1376,6 +1391,23 @@ body {
 								.flex(1);
 								margin:0;
 								padding: 0;
+							}
+							.nav-compare{
+								.display();
+								.justify-content(space-around);
+								.align-items(flex-start);
+								img{
+									max-width: 140px;
+									margin: 5px;
+									cursor: pointer;
+									border:solid 1px transparent;
+									.transition(0.6s);
+									&.active{
+										border:solid 1px @kavak_color2;
+										box-shadow: 0 0 10px black;
+										// border-radius: 5px;
+									}
+								}
 							}
 						}
 					}
