@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title id="app-title">{{title}}</title>
+	<!-- styles start -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		<link rel="stylesheet" href="assets/lib/node_modules/animate/animate.min.css">
+		<link rel="stylesheet" href="assets/lib/node_modules/hover/hover.css">
+		<link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/lib/bxslider/jquery.bxslider.css">
+		<link rel="stylesheet" href="assets/lib/node_modules/lazyframe/dist/lazyframe.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+		
+		<link rel="stylesheet" href="assets/apolo/css/style.css">
+	<!-- styles end -->
+</head>
+<body class="preloading">
+<!-- vue-wrapper start -->
+	<div id="app-main" :class="{'vue-wrapper ready':isLoad}">
+	<div id="preload" :class="{'preload ready':isLoad}"></div>
+		
+		<!-- nav start -->
+		<nav class="main-nav navbar navbar-toggleable-md navbar-light">
+		  <button class="navbar-toggler navbar-toggler-right hidden-lg-up" id="main-nav-collapse-btn">
+		    <i class="fa fa-bars"></i>
+		  </button>
+		  <div class="wrapper-nav">
+			  <a class="navbar-brand" href="#">
+			  	<img src="assets/apolo/img/general/kavak_logo.jpg" alt="logo" class="hvr-grow-shadow animated fadeIn">
+			  </a>
+
+			  <div class="nav-collapse" id="main-nav-collapse">
+
+			  	<!-- nav-list start -->
+				    <nav-fixed-top :nav="nav"><nav-fixed-top>
+				<!-- nav-list end -->
+
+			    <!-- search-form start-->
+				    <form class="form-inline my-2 my-lg-0 hidden">
+				      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				    </form>
+			    <!-- search-form end-->
+
+			  </div>
+		  </div>
+		</nav>
+	<!-- nav end -->
+
+		<!-- main content start -->
+
+			<div class="main-content">
+
+				<!-- aside-main-left start -->
+					<aside class="aside-main-left hidden"></aside>
+				<!-- aside-main-left end -->
+				
+				<!-- wrapper-body start -->
+					<div class="wrapper-body">
+
+						<!-- main-banner start -->
+							<section class="screen main-banner">
+								<div v-if="home.banner.title!=''" class="title animated fadeInDown">
+									<h1>{{home.banner.title}}</h1>
+								</div>
+								<div v-if="home.banner.buttons.length > 0" class="buttons">
+									<ul class="wow-delay">
+										<li v-for="button in home.banner.buttons" class="animated fadeInLeft">
+											<a v-bind:href="button.link">{{button.text}}</a>
+										</li>
+									</ul>
+								</div>
+								<div v-if="home.banner.videoTitle!=''" class="video">
+									<ul>
+										<li class="animated fadeInUp">
+											<a href="#video-kavak" id="video-kavak-play">
+												<i class="fa fa-play"></i>
+												<h2>{{home.banner.videoTitle}}</h2>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="car animated fadeInLeft">
+									<img v-bind:src="home.banner.image" alt="banner_car" class="img img-responsive">
+								</div>
+								<div class="more">
+									<ul>
+										<li class="animated fadeInUp">
+											<a href="#middle-nav" class="anchor">
+												<h3>{{home.banner.more}}</h3>
+												<i class="fa fa-chevron-down"></i>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="video-embed well">
+									<div class="wrapper-embed">
+										<div 
+										    class="lazyframe"
+										    data-vendor="youtube"
+										    data-title=""
+										    data-thumbnail="assets/apolo/img/home/video-kavak.jpg"
+										    data-src="https://www.youtube.com/embed/dhvtFWObBS8"
+										    data-ratio="16:9">
+										</div>
+									</div>
+									<div class="close">
+										<a href="#" id="video-kavak-close"><i class="fa fa-remove"></i></a>
+									</div>
+								</div>
+							</section>
+						<!-- main-banner end -->
+
+						<!-- middle-nav start -->
+							<nav class="middle-nav nav hidden-md-down" id="middle-nav">
+                                <ul class="anchor-nav">
+                                    <li v-for="link in home.middleNav">
+                                        <a class="anchor" v-bind:data-ref="link.link" v-bind:href="link.link">
+                                            {{link.text}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+						<!-- middle-nav end -->
+
+						<!-- why-kavak start -->
+							<section class="screen why-kavak" id="porque-comprar">
+								<h2>{{home.comprar.title}}</h2>
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs wow-delay" role="tablist">
+								  <li v-for="navtab in home.comprar.tab.nav" class="nav-item wow fadeInUp">
+								    <a class="nav-link" v-bind:class="{active:navtab.active}" data-toggle="tab" v-bind:href="navtab.tabBody" role="tab">
+								    	<img :src="navtab.image" alt="">
+								    	<h3>{{navtab.text}}</h3>
+								    </a>
+								  </li>
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content-mobile tab-content">
+								  <div v-for="tabBody in home.comprar.tab.body" class="tab-pane" :class="{active:tabBody.active}" :id="tabBody.tabBody" role="tabpanel">
+								  	<div class="wrapper-tab">
+									  	<div class="wow fadeIn tab-content-img">
+									  		<img class="hidden-md-down" :src="tabBody.image" alt="">
+									  	</div>
+									  	<div class="wow fadeInRight tab-content-body">
+									  		<div class="wrap-mobile">
+									  			<img class="hidden-md-up" :src="tabBody.image" alt="">
+									  			<h2>{{tabBody.title}} <i class="fa fa-angle-down hidden-md-up"></i></h2>
+									  		</div>
+									  		<p>{{tabBody.body}}</p>
+									  	</div>
+								  	</div>
+								  </div>
+								</div>
+
+								<!-- action -->
+								<div class="why-action">
+									<a :href="home.comprar.btn.link" class="btn-kavak">{{home.comprar.btn.text}}</a>
+								</div>
+							</section>
+						<!-- why-kavak end -->
+
+						<!-- compara start -->
+							<section class="screen compare" id="compara">
+								<h2>{{home.compara.title}}</h2>
+
+								<!-- compara-header start -->
+									<div class="compara-header">
+										<div class="compara-kavak">
+											<ul>
+												<li class="kavak">
+													<img src="assets/apolo/img/general/kavak_logo.jpg" alt="">
+												</li>
+												<li class="hidden-md-down">
+													<img src="assets/apolo/img/home/bitmap.png" alt="">
+												</li>
+											</ul>
+										</div>
+										<div class="compara-vs">
+											<div class="vs">
+												<h2>vs</h2>
+											</div>
+										</div>
+										<div class="compara-other">
+											<ul>
+												<li>
+													<h4>Otras altenativas <span class="hidden-md-down">de compra</span></h4>
+												</li>
+												<li class="hidden-md-down">
+													<img src="assets/apolo/img/home/bitmap.png" alt="">
+												</li>
+											</ul>
+										</div>
+									</div>
+								<!-- compara-header end -->
+
+								<!-- compara-body start -->
+									<div class="compara-body">
+										<div id="accordion" role="tablist" aria-multiselectable="true" class="wow-delay">
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseOne" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseTwo" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseTree" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseFour" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseFive" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="wow zoomIn img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="wow zoomIn img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										  <div class="wow fadeIn card">
+										    <div class="card-header" role="tab" id="headingOne">
+										      <h5 class="mb-0">
+										        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+										        	<div class="link-left">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        	<div class="link-center">
+										        		<span>+ 15,000.00</span>
+										        	</div>
+										        	<div class="link-right hidden-md-down">
+										        		<i class="fa fa-angle-right"></i> Precio promedio
+										        	</div>
+										        </a>
+										      </h5>
+										    </div>
+										    <div id="collapseSix" class="collapse-anim collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="card-block">
+										      	<div class="link-left">
+											      	<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+									        	<div class="link-center">
+									        		
+									        	</div>
+									        	<div class="link-right">
+													<div class="img">
+											      		<img src="assets/apolo/img/home/bitmap.png" alt="">
+											      	</div>
+											      	<div class="text">
+											      		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed repellat numquam tempora, natus dolorem maxime ex vitae beatae hic animi quos eaque error eligendi ea, ab, fugiat sunt molestiae saepe.</p>
+											      	</div>
+									        	</div>
+										      </div>
+										    </div>
+										  </div>
+
+										</div>
+									</div>
+								<!-- compara-body end -->
+
+								<!-- compara-footer start -->
+									<div class="compara-footer">
+							        	<div class="wow fadeInLeft link-left">
+							        		<h2>Total de Ahorros</h2> 
+							        	</div>
+							        	<div class="wow fadeInUp link-center">
+							        		<span>+ 30,000.00</span>
+							        	</div>
+							        	<div class="wow fadeInRight link-right hidden-md-down">
+							        		<h2>Compra tu auto Kavak</h2>
+							        	</div>
+								    </div>
+								<!-- compara-footer end -->
+
+							</section>
+						<!-- compara end -->
+
+						<!-- vender-auto start -->
+							<section class="screen sell" id="vender-auto">
+								<h2>Vender tu auto en Kavak es muy sencillo</h2>
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs wow-delay" role="tablist">
+								  <li class="nav-item wow fadeInUp">
+								    <a class="nav-link active" data-toggle="tab" href="#home1" role="tab">
+								    	<img src="assets/apolo/img/home/iconos-02.png" alt="">
+								    	<h3>Recibe una oferta instantanea</h3>
+								    </a>
+								  </li>
+								  <li class="nav-item wow fadeInUp">
+								    <a class="nav-link" data-toggle="tab" href="#messages1" role="tab">
+								    	<img src="assets/apolo/img/home/iconos-02.png" alt="">
+								    	<h3>Garantizado con inspección de 240 pts</h3>
+								    </a>
+								  </li>
+								  <li class="nav-item wow fadeInUp">
+								    <a class="nav-link" data-toggle="tab" href="#profile1" role="tab">
+								    	<img src="assets/apolo/img/home/iconos-02.png" alt="">
+								    	<h3>recibe tu pago sin complicaciones</h3>
+								    </a>
+								  </li>
+								</ul>
+
+								<!-- Tab panes -->
+								<div class="tab-content tab-content-mobile">
+								  <div class="tab-pane active" id="home1" role="tabpanel">
+								  	<div class="wrapper-tab">
+									  	<div class="wow fadeIn tab-content-img">
+									  		<img class="hidden-md-down" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  	</div>
+									  	<div class="wow fadeInRight tab-content-body">
+									  		<div class="wrap-mobile">
+									  			<img class="hidden-md-up" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  			<h2>ofrecemos el mejor precio <i class="fa fa-angle-down hidden-md-up"></i></h2>
+									  		</div>
+									  		<p>Compra tu auto 100% en línea en pocos minutos. Kavak se encarga del resto por ti, desde los trámites hasta ofrecerte seguro y financiamiento.</p>
+									  	</div>
+								  	</div>
+								  </div>
+								  <div class="tab-pane" id="messages1" role="tabpanel">
+								  	<div class="wrapper-tab">
+									  	<div class="wow fadeIn tab-content-img">
+									  		<img class="hidden-md-down" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  	</div>
+									  	<div class="wow fadeInRight tab-content-body">
+									  		<div class="wrap-mobile">
+									  			<img class="hidden-md-up" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  			<h2>ofrecemos el mejor precio <i class="fa fa-angle-down hidden-md-up"></i></h2>
+									  		</div>
+									  		<p>Compra tu auto 100% en línea en pocos minutos. Kavak se encarga del resto por ti, desde los trámites hasta ofrecerte seguro y financiamiento.</p>
+									  	</div>
+								  	</div>
+								  </div>
+								  <div class="tab-pane" id="profile1" role="tabpanel">
+								  	<div class="wrapper-tab">
+									  	<div class="wow fadeIn tab-content-img">
+									  		<img class="hidden-md-down" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  	</div>
+									  	<div class="wow fadeInRight tab-content-body">
+									  		<div class="wrap-mobile">
+									  			<img class="hidden-md-up" src="assets/apolo/img/home/ilustracion-desde-casa.png" alt="">
+									  			<h2>ofrecemos el mejor precio <i class="fa fa-angle-down hidden-md-up"></i></h2>
+									  		</div>
+									  		<p>Compra tu auto 100% en línea en pocos minutos. Kavak se encarga del resto por ti, desde los trámites hasta ofrecerte seguro y financiamiento.</p>
+									  	</div>
+								  	</div>
+								  </div>
+								</div>
+
+								<!-- action -->
+								<div class="why-action">
+									<a href="" class="btn-kavak">Vendenos tu auto</a>
+								</div>
+							</section>
+						<!-- vender-auto end -->
+
+						<!-- testimonios start -->
+							<section class="screen testimonials" id="testimonios">
+								<div class="testimonials-list container">
+									<h2>Testimonios Kavak</h2>
+									<ul id="testimonials-gallery">
+										<li class="wow fadeInUp">
+											<article class="testimonials-item">
+												<div class="copy">
+													<h3>Luis Hernandez</h3>
+													<p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, voluptate ratione quas, minus velit pariatur dolores accusamus, illum libero provident maiores nisi optio repudiandae praesentium vero repellendus modi, animi ex?</p>
+													<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ipsa accusamus aperiam quasi saepe mollitia cum nobis, obcaecati perspiciatis necessitatibus itaque praesentium tempore aut facere. Accusantium iusto explicabo assumenda nemo."</blockquote>
+
+												</div>
+												<div class="video">
+													<div 
+													    class="lazyframe"
+													    data-vendor="youtube"
+													    data-title=""
+													    data-thumbnail="http://www.kavak.com/assets/uploads/1475381544Rodrigo-Díaz-Jetta-A6.jpg"
+													    data-src="https://www.youtube.com/embed/L7mNq2HFARk?list=PLeRyxUiDHhaqbExNXO-QnHcCaw5Xw6NZI"
+													    data-ratio="16:9">
+													</div>
+												</div>
+											</article>
+										</li>
+										<li class="wow fadeInUp">
+											<article class="testimonials-item">
+												<div class="col-md-6 copy">
+													<h3>Luis Hernandez</h3>
+													<p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, voluptate ratione quas, minus velit pariatur dolores accusamus, illum libero provident maiores nisi optio repudiandae praesentium vero repellendus modi, animi ex?</p>
+													<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ipsa accusamus aperiam quasi saepe mollitia cum nobis, obcaecati perspiciatis necessitatibus itaque praesentium tempore aut facere. Accusantium iusto explicabo assumenda nemo."</blockquote>
+
+												</div>
+												<div class="col-md-6 video">
+													<div 
+													    class="lazyframe"
+													    data-vendor="youtube"
+													    data-title=""
+													    data-thumbnail="http://www.kavak.com/assets/uploads/1475381544Rodrigo-Díaz-Jetta-A6.jpg"
+													    data-src="https://www.youtube.com/embed/BOOljk_LOcs?list=PLeRyxUiDHhaqbExNXO-QnHcCaw5Xw6NZI"
+													    data-ratio="16:9">
+													</div>
+											</article>
+										</li>
+										<li class="wow fadeInUp">
+											<article class="testimonials-item">
+												<div class="col-md-6 copy">
+													<h3>Luis Hernandez</h3>
+													<p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati, voluptate ratione quas, minus velit pariatur dolores accusamus, illum libero provident maiores nisi optio repudiandae praesentium vero repellendus modi, animi ex?</p>
+													<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci ipsa accusamus aperiam quasi saepe mollitia cum nobis, obcaecati perspiciatis necessitatibus itaque praesentium tempore aut facere. Accusantium iusto explicabo assumenda nemo."</blockquote>
+
+												</div>
+												<div class="col-md-6 video">
+													<div 
+													    class="lazyframe"
+													    data-vendor="youtube"
+													    data-title=""
+													    data-thumbnail="http://www.kavak.com/assets/uploads/1475381544Rodrigo-Díaz-Jetta-A6.jpg"
+													    data-src="https://www.youtube.com/embed/uJJ2c0FFt9Y?list=PLeRyxUiDHhaqbExNXO-QnHcCaw5Xw6NZI"
+													    data-ratio="16:9">
+													</div>
+												</div>
+											</article>
+										</li>
+									</ul>		
+								</div>
+								<div class="vn_partner_wrap">
+									<div class="container" id="prensa">
+										<div class="row" >
+											<h2 class="vn_partner_heading">EN LA PRENSA</h2>
+											<ul id="prensa-gallery" class="wow-delay">
+												<li class="wow fadeInUp">
+													<a href="http://www.forbes.com.mx/esta-startup-te-garantiza-vender-tu-auto-usado-en-menos-de-30-dias/#gs.grgH1YI" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1481918034Forbes-logo-vector.png" alt="Esta startup te garantiza vender tu auto usado en menos de 30 días" class="img-responsive">
+														<span class="title cleardiv">Esta startup te garantiza vender tu auto usado en menos de 30 días</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://bit.ly/2eY9Kq2" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480369350CNN-expansion.jpg" alt="KAVAK cierra ronda de inversión por 3MDD, de las más grandes de América Latina" class="img-responsive">
+														<span class="title cleardiv">KAVAK cierra ronda de inversión por 3MDD, de las más grandes de América Latina</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://www.sinembargo.mx/11-12-2016/3123913" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1481919126logo_se_gde.gif" alt="México, un mercado con alto potencial para el e-commerce: Kavak" class="img-responsive">
+														<span class="title cleardiv">México, un mercado con alto potencial para el e-commerce: Kavak</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://bit.ly/2e5MGtN" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480369364Hipertextual_logo.jpg" alt="Dos venezolanos quieren acelerar la compraventa de autos en Latinoamérica" class="img-responsive">
+														<span class="title cleardiv">Dos venezolanos quieren acelerar la compraventa de autos en Latinoamérica</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://bit.ly/2g3QrAk" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480107696ebusinesshoy.png" alt="Kavak o cómo comprar autos usados en internet en 30 minutos" class="img-responsive">
+														<span class="title cleardiv">Kavak o cómo comprar autos usados en internet en 30 minutos</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://bit.ly/2f2KrqT" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480369589atraccion360.png" alt="Kavak, la startup que te asegura la venta de tu auto por internet" class="img-responsive">
+														<span class="title cleardiv">Kavak, la startup que te asegura la venta de tu auto por internet</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://www.eluniversal.com.mx/articulo/autopistas/2016/11/25/una-apuesta-de-lujo-por-los-autos-de-segunda-mano" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480426390El_Universal_logo_México_Mexico_City.png" alt="Una apuesta de lujo por los autos de segunda mano" class="img-responsive">
+														<span class="title cleardiv">Una apuesta de lujo por los autos de segunda mano</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://expansion.mx/emprendedores/2016/10/02/dos-ex-empleados-de-linio-van-por-el-mercado-de-autos-usados-en-mexico" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/14805215181480369105CNN-expansion.jpg" alt="Dos exempleados de Linio van por el mercado de autos usados en México" class="img-responsive">
+														<span class="title cleardiv">Dos exempleados de Linio van por el mercado de autos usados en México</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://www.imagenradio.com.mx/rodrigo-pacheco/kavak-es-la-nueva-forma-de-vender-o-comprar-un-coche-carlos-garcia" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480521552imagen_radio.jpg" alt="Kavak es la nueva forma de vender o comprar un coche: Carlos García" class="img-responsive">
+														<span class="title cleardiv">Kavak es la nueva forma de vender o comprar un coche: Carlos García</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://www.eluniversal.com.mx/articulo/cartera/economia/2016/12/5/kavak-busca-redefinir-comercio-de-seminuevos" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480952687El_Universal_logo_México_Mexico_City.png" alt="Kavak busca redefinir comercio de seminuevos" class="img-responsive">
+														<span class="title cleardiv">Kavak busca redefinir comercio de seminuevos</span>
+													</a>
+												</li>
+												<li class="wow fadeInUp">
+													<a href="http://revistaneo.com/articles/2016/10/28/kavak-compra-venta-de-autos-usados-online" target="_blank" rel="nofollow">
+														<img src="http://www.kavak.com/assets/uploads/1480952747NEO.png" alt="Kavak: compra venta de autos usados online" class="img-responsive">
+														<span class="title cleardiv">Kavak: compra venta de autos usados online</span>
+													</a>
+												</li>
+											</ul>		
+										</div>
+									</div>
+								</div>	
+							</section>
+						<!-- testimonios end -->
+
+					</div>
+				<!-- wrapper-body end -->
+
+				<!-- aside-main-right start -->
+					<aside class="aside-main-right hidden"></aside>
+				<!-- aside-main-right end -->
+
+			</div>
+		<!-- main content end -->
+
+		<!-- footer start -->
+			<footer class="main-footer">
+				<div class="logo">
+					<img src="assets/apolo/img/general/kavak_logo.jpg" alt="logo_footer">
+				</div>
+				<!-- social widget start -->
+					<div class="social">
+						<ul>
+							<li>
+								<a href="">
+									<i class="fa fa-facebook"></i>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-twitter"></i>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-instagram"></i>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-youtube"></i>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-google-plus"></i>
+								</a>
+							</li>
+							<li>
+								<a href="">
+									<i class="fa fa-linkedin"></i>
+								</a>
+							</li>
+						</ul>
+						
+					</div>
+				<!-- social widget start -->
+				<div class="footer-nav hidden-md-down">
+				<!-- footer nav widget start -->
+					<ul>
+						<li class="hvr-underline-from-center">
+							<a href="">Acerca de Kavak</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Testimonios</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Contáctanos</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Cómo Vender Autos</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Buscar Autos en Venta</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Preguntas Frecuentes</a>
+						</li>
+					</ul>
+				<!-- footer nav widget end -->
+				</div>
+				<div class="nav-policy">
+				<!-- footer nav-policy widget start -->
+					<ul>
+						<li class="hvr-underline-from-center">
+							<a href="">Políticas de Privacidad</a>
+						</li>
+						<li class="hvr-underline-from-center">
+							<a href="">Términos y condiciones</a>
+						</li>
+					</ul>
+				<!-- footer nav-policy widget end -->
+				</div>
+				<div class="copyright">
+				<!-- footer nav-policy widget start -->
+					<ul>
+						<li class="hvr-underline-from-center">
+							<a href=""><i class="fa fa-copyright"></i> Copyright 2017 Kavak</a>
+						</li>
+					</ul>
+				<!-- footer nav-policy widget end -->
+				</div>
+			</footer>
+		<!-- footer end -->
+
+		<!-- test star-->
+			<div class="well container hidden-xs-down">
+				<div class="jumbotron">
+					<h1>Pruebas API Resources - Axios</h1>
+				</div>
+				<img 
+				v-for="persona in personas" 
+				:src="persona.picture.thumbnail" 
+				:alt="persona.name.first">
+				<hr>
+				<img 
+				v-for="persona in personasAxios" 
+				:src="persona.picture.thumbnail" 
+				:alt="persona.name.first">
+				<hr>
+				<pre>{{$data}}</pre>
+			</div>
+		<!-- test end-->
+
+	</div>
+<!-- vue-wrapper end -->
+</body>
+<!-- scripts libs start -->
+	<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<script src="assets/lib/node_modules/wowjs/dist/wow.min.js"></script>
+	<script src="assets/lib/node_modules/lazyframe/dist/lazyframe.min.js"></script>
+	<script src="assets/lib/bxslider/jquery.bxslider.js"></script>
+	<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+	<!-- se usa resources o axios para ajax -->
+	<script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="assets/apolo/js/functions.js"></script>
+<!-- scripts libs end -->
+
+<!-- scripts  start -->
+	<script>
+
+	
+
+	</script>
+<!-- scripts  end -->
+
+</html>
