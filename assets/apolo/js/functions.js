@@ -1,15 +1,16 @@
 
 $(function(){
-    $('.video-embed').fadeOut(10);
 
-    // animacion con delay
+// delay animation
     $(".wow-delay").children().each(function(index, el) {
         var tiempo;
         tiempo = (index*0.1);
         $(this).attr("data-wow-delay", tiempo+'s');
     });
+//mobile behavior
     var ancho = $(window).width();
-    if (ancho < 991) {
+    if (ancho < 767) {
+        // home / why kavak section
         $('.tab-content-mobile').removeClass('tab-content');
         $('.tab-content-body').parent().find('p').addClass('p-mobile');
         $('.wrap-mobile').on('click',function(){
@@ -18,8 +19,19 @@ $(function(){
                 wrap.parent().find('.p-mobile').fadeIn(200);
             });
         });
+    }
+    if (ancho < 991) {
+        // main nav
+        $('#main-nav-collapse').removeClass('show');
+        $('.hvr-underline-from-center').removeClass('hvr-underline-from-center');
+
+        $('#main-nav-collapse-btn').click(function(){
+            $('#main-nav-collapse').toggleClass('show');
+            $('#video-kavak-close').trigger('click');
+        })
+        // home / compare section
         $('.nav-compare img').click(function(){
-            var el = $(this);
+            var el   = $(this);
             var item = el.data('item');
             el.parent().find('.active').removeClass('active');
             el.addClass('active');
@@ -31,18 +43,8 @@ $(function(){
             })
         })
     }
-    if (ancho < 1200) {
-        
-        $('#main-nav-collapse').removeClass('show');
-        $('.hvr-underline-from-center').removeClass('hvr-underline-from-center');
 
-        $('#main-nav-collapse-btn').click(function(){
-            $('#main-nav-collapse').toggleClass('show');
-            $('#video-kavak-close').trigger('click');
-        })
-    }
-
-
+// video lazyframe
     var elements = $('.lazyframe');
 
     lazyframe(elements, {
@@ -56,7 +58,9 @@ $(function(){
         }
     })
 
-    // video play
+// home / how works  -- hide video onload
+    $('.video-embed').fadeOut(10);
+
     $('#video-kavak-play').click(function(e){
         e.preventDefault();
         $('.video-embed').fadeIn(500).addClass('active');
@@ -67,9 +71,8 @@ $(function(){
     })
 
 
-    // scroll ani
+// scroll animate
     var height_nav = 110;
-    // linkInterno = $('a[href^="#"]:not(.nav-tabs li a)');
     linkInterno = $('a.anchor');
     linkInterno.on('click',function(e) {
         e.preventDefault();
@@ -77,7 +80,7 @@ $(function(){
         $('html, body').animate({ scrollTop : $( href ).offset().top - height_nav}, 'slow');
     });
 
-    // slider
+// testimonial slider
     if ($('#testimonials-gallery').children().length >1) {
         $('#testimonials-gallery').bxSlider(
             {
@@ -90,13 +93,19 @@ $(function(){
             }
         );
     }
+// prensa slider
     if ($('#prensa-gallery').children().length >5) {
+        // adjust 2 mobile
+        if (ancho > 767) {
+            var slideWidth  = 185;
+        }else{
+            var slideWidth  = 150;
+        }
         $('#prensa-gallery').bxSlider({
           minSlides: 1,
           maxSlides: 8,
-          slideWidth: 185,
+          slideWidth: slideWidth,
           slideMargin: 0, 
-          // controls: false,
           auto: false,
           speed:2000,
           swipeThreshold:20,
@@ -114,14 +123,7 @@ $(function(){
         })
     }
 
-    // $('.screen').on('scrollSpy:enter', function() {
-    //     console.log('enter:', $(this).attr('id'));
-    // });
-
-    // $('.screen').on('scrollSpy:exit', function() {
-    //     console.log('exit:', $(this).attr('id'));
-    // });
-
+//middle nav fixed on scroll
     var main_nav      = $(".main-nav");
     var main_banner   = $(".main-banner");
     var middle_nav    = $(".middle-nav");
@@ -147,8 +149,7 @@ $(function(){
         }
     })
 
-    //scroolspy a pata
-
+//scroolspy a pata
     $.fn.extend({   
         // Devuelve true si el elemento está en window
         isInScene : function(arg)
@@ -160,19 +161,14 @@ $(function(){
             arg.desfase = arg.desfase || 0;
             // Fuerza a que desfase sea númerico
             arg.desfase = parseInt(arg.desfase,10);
-     
             // Posición vertical del elemento respecto al principio del documento
             var pos_container = $(this).offset().top;
-     
             // Altura del elemento
             var container_height = $(this).outerHeight();
-     
             // Posición vertical de document
             var pos_document = $(document).scrollTop();
-     
             // Alto ventana
             var window_height = $(window).height(); 
-     
             return (pos_document+window_height > pos_container+arg.desfase && pos_container+container_height > pos_document+arg.desfase);
         }
     });
@@ -186,7 +182,7 @@ $(function(){
         })
     }
 
-    //elementos a espiar
+    //spy elements
     var elements = [
         '#porque-comprar', 
         '#compara', 
@@ -194,7 +190,7 @@ $(function(){
         '#testimonios'
     ];
 
-    // Utilizamos el método isInScene & activeInScene
+    // apply isInScene & activeInScene
     $(document).scroll(function(e)
     {   
         for (var i = 0; i < elements.length; i++) {
@@ -207,309 +203,3 @@ $(function(){
     // notas: los links deben tener un data-ref igual al id del bloque a espiar
 
 })
-/*vue components start*/
-    // main nav bar
-    Vue.component('nav-fixed-top', {
-        props   : ['nav'],
-        template: `<ul class="navbar-nav mr-auto">
-                        <li 
-                            v-for="link in nav" 
-                            class="hvr-underline-from-center nav-item" 
-                            v-bind:class="{dropdown:link.submenu!=false, active:link.active}"
-                            >
-                            <a 
-                                class="nav-link" 
-                                v-bind:class="{'dropdown-toggle':link.submenu!=false}" 
-                                v-bind:href="link.link" 
-                                id="navbarDropdownMenuLink" 
-                                data-toggle="dropdown" 
-                                aria-haspopup="true" 
-                                aria-expanded="false"
-                                >{{link.text}}</a>
-
-                            <div 
-                                v-if="link.submenu.length > 0" 
-                                class="dropdown-menu" 
-                                aria-labelledby="navbarDropdownMenuLink"
-                                >
-                                <a 
-                                    v-for="sub in link.submenu" 
-                                    class="hvr-underline-from-center 
-                                    dropdown-item" 
-                                    v-bind:href="sub.link"
-                                    >{{sub.text}}</a>
-                            </div>
-                        </li>
-                    </ul>`
-    });
-    // main nav bar
-    Vue.component('search-form', {
-        props   : [],
-        template: `<form class="form-inline my-2 my-lg-0 hidden">
-                      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>`
-    });
-    // main nav bar
-    Vue.component('middle-nav', {
-        props   : ['nav'],
-        template: `<nav class="middle-nav nav" id="middle-nav">
-                                <ul class="anchor-nav">
-                                    <li v-for="link in nav">
-                                        <a class="anchor" v-bind:data-ref="link.link" v-bind:href="link.link">
-                                            {{link.text}}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>`
-    });
-
-
-/*vue components end*/
-var app_title = new Vue({
-    el:'#app-title',
-    data:{
-        title:'Vue Kavak'
-    } 
-});
-
-let home = {
-        banner:{
-            title:'¡Un Auto. Una Experiencia Única!',
-            buttons:[
-                {
-                    link:'#comprar',
-                    text:'Comprar tu Auto Kavak'
-                },  
-                {
-                    link:'#vender',
-                    text:'Vender tu Auto Kavak'
-                }
-            ],
-            videoTitle:'Cómo Funciona Kavak',
-            image:'assets/apolo/img/home/banner_car.png', 
-            more: 'Conoce más'
-        }, 
-        middleNav:[
-            {
-                link:'#porque-comprar',
-                text:'Porque comprar un auto Kavak'
-            },
-            {
-                link:'#compara',
-                text:'Comparanos con la competencia'
-            },
-            {
-                link:'#vender-auto',
-                text:'Vender tu auto en Kavak es muy fácil'
-            },
-            {
-                link:'#testimonios',
-                text:'Testimoniales'
-            },
-        ],
-        comprar:{
-            title:'Porque comprar un auto en Kavak', 
-            tab:{
-                nav:[
-                    {
-                        active:true,
-                        tabBody:'#home',
-                        image:'assets/apolo/img/home/iconos-02.png',
-                        text:'Ofrecemos el mejor precio' 
-                    },
-                    {
-                        active:false,
-                        tabBody:'#profile',
-                        image:'assets/apolo/img/home/iconos-02.png',
-                        text:'Mejor precios del Mercado' 
-                    },
-                    {
-                        active:false,
-                        tabBody:'#messages',
-                        image:'assets/apolo/img/home/iconos-02.png',
-                        text:'Garantizado con inspección de 240 pts' 
-                    },
-                    {
-                        active:false,
-                        tabBody:'#settings',
-                        image:'assets/apolo/img/home/iconos-02.png',
-                        text:'Entregado a tu puerta' 
-                    },
-                    {
-                        active:false,
-                        tabBody:'#certificado',
-                        image:'assets/apolo/img/home/iconos-02.png',
-                        text:'Inspeccionado y certificado' 
-                    }
-                ],
-                body:[
-                    {
-                        active:true,
-                        tabBody:'home',
-                        image:'assets/apolo/img/home/ilustracion-desde-casa.png',
-                        title:'Ofrecemos el mejor precio',
-                        body:'1111111111xaxaxalorem qhkwjdhkjw qw kdhqwkdjqkwjd qkwdgqwjd qwjdgqjwdgqkjwd qkwjdgkqjwdgkqw kqwjd qkwjdgqk wdkqwjdg qkwjdgqkwjdgkqwjdg qwd'
-                    },
-                    {
-                        active:false,
-                        tabBody:'profile',
-                        image:'assets/apolo/img/home/ilustracion-desde-casa.png',
-                        title:'Mejor precios del Mercado',
-                        body:'22222222222lorem qhkwjdhkjw qw kdhqwkdjqkwjd qkwdgqwjd qwjdgqjwdgqkjwd qkwjdgkqjwdgkqw kqwjd qkwjdgqk wdkqwjdg qkwjdgqkwjdgkqwjdg qwd'
-                    },
-                    {
-                        active:false,
-                        tabBody:'messages',
-                        image:'assets/apolo/img/home/ilustracion-desde-casa.png',
-                        title:'Garantizado con inspección de 240 pts',
-                        body:'33333333333lorem qhkwjdhkjw qw kdhqwkdjqkwjd qkwdgqwjd qwjdgqjwdgqkjwd qkwjdgkqjwdgkqw kqwjd qkwjdgqk wdkqwjdg qkwjdgqkwjdgkqwjdg qwd'
-                    },
-                    {
-                        active:false,
-                        tabBody:'settings',
-                        image:'assets/apolo/img/home/ilustracion-desde-casa.png',
-                        title:'Entregado a tu puerta',
-                        body:'4444444444lorem qhkwjdhkjw qw kdhqwkdjqkwjd qkwdgqwjd qwjdgqjwdgqkjwd qkwjdgkqjwdgkqw kqwjd qkwjdgqk wdkqwjdg qkwjdgqkwjdgkqwjdg qwd'
-                    },
-                    {
-                        active:false,
-                        tabBody:'certificado',
-                        image:'assets/apolo/img/home/ilustracion-desde-casa.png',
-                        title:'Inspeccionado y certificado',
-                        body:'555555555lorem qhkwjdhkjw qw kdhqwkdjqkwjd qkwdgqwjd qwjdgqjwdgqkjwd qkwjdgkqjwdgkqw kqwjd qkwjdgqk wdkqwjdg qkwjdgqkwjdgkqwjdg qwd'
-                    }
-                ]
-            }, 
-            btn:{
-                link:'#compra-btn',
-                text:'Compra un auto Kavak'
-            }
-        },
-        compara:{
-            title:'Comparanos con los demas'
-        }
-    };
-
-let nav  = [
-            {
-                link:'#compra', 
-                text:'Compra un Auto', 
-                submenu:false,
-                active:true
-            },
-            {
-                link:'#vende', 
-                text:'Vende tu Auto', 
-                submenu:false,
-                active:false
-            },
-            {
-                link:'#acerca', 
-                text:'Acerca de Kavak', 
-                submenu:[
-                    {
-                        link:'#inspeccion',
-                        text:'Inspección'
-                    },
-                    {
-                        link:'#financiamiento',
-                        text:'Financiamiento'
-                    },
-                    {
-                        link:'#garantia',
-                        text:'Garantia'
-                    },
-                    {
-                        link:'#faq',
-                        text:'Preguntas Frecuentes'
-                    },
-                ],
-                active:false
-            },
-            {
-                link:'#registrate', 
-                text:'Registrate',
-                submenu:false,
-                active:false
-            },
-            {
-                link:'#contactanos', 
-                text:'Contáctanos',
-                submenu:false,
-                active:false
-            }, 
-
-        ];
-let data =  {
-                nav : nav,
-                home: home,
-                personas:[],
-                personasAxios:[],
-                isLoad:true,
-            };
-
-var app_main = new Vue({
-
-        el      :'#app-main',
-        data:data,
-        methods : {
-
-            addSocial(){
-                this.redes.push(this.newSocial);
-                this.newSocial = '';
-            }
-            ,
-            toggleClass(){
-                this.isLoading = !this.isLoading;
-                this.reverseMessage();
-            }
-        },
-        computed: {
-            preload(){
-                $('.preloading').removeClass('preloading', function(){
-
-                    new WOW().init();
-                    $('#preload').addClass('out').text('hola');
-
-                    $(".wow-delay").children().each(function(index, el) {
-                        var tiempo;
-                        tiempo = (index*0.3);
-                        $(this).attr("data-wow-delay", tiempo+'s');
-                    });
-                })
-            },
-            reverseMessage(){
-                this.computed = this.computed.split('').reverse().join('') ;
-            }, 
-
-            availableSocial(){
-                return this.redes.filter(red => red.available);
-            },
-
-            unavailableSocial(){
-                return this.redes.filter(red => !red.available);
-            },
-
-        }, 
-        mounted(){
-            this.cargarPersonas();
-            this.cargarPersonasAxios();
-        }, 
-        methods: {
-            cargarPersonas(){
-                this.$http.get('https://randomuser.me/api/?results=10')
-                .then((respuesta) => {
-                    // console.log(respuesta);
-                    this.personas = respuesta.body.results;
-                })
-            }, 
-            cargarPersonasAxios(){
-                axios.get('https://randomuser.me/api/?results=15')
-                .then((respuesta) => {
-                    this.personasAxios = respuesta.data.results;
-                })
-            }
-        }
-
-    });
