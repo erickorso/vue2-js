@@ -56,7 +56,7 @@ let nav  = [
 
 ];
 let footer = {
-    logo:'assets/apolo/img/general/kavak_logo.jpg',
+    logo:'assets/apolo/img/general/logo-white.svg',
     social:[
         {
             link:'facebook',
@@ -173,31 +173,31 @@ let home = {
                     {
                         active:true,
                         tabBody:'#home',
-                        image:'assets/apolo/img/home/iconos-02.png',
+                        image:'assets/apolo/img/home/Illustrations-02.jpg',
                         text:'Ofrecemos el mejor precio' 
                     },
                     {
                         active:false,
                         tabBody:'#profile',
-                        image:'assets/apolo/img/home/iconos-02.png',
+                        image:'assets/apolo/img/home/Illustrations-08.jpg',
                         text:'Mejor precios del Mercado' 
                     },
                     {
                         active:false,
                         tabBody:'#messages',
-                        image:'assets/apolo/img/home/iconos-02.png',
+                        image:'assets/apolo/img/home/Illustrations-07.jpg',
                         text:'Garantizado con inspección de 240 pts' 
                     },
                     {
                         active:false,
                         tabBody:'#settings',
-                        image:'assets/apolo/img/home/iconos-02.png',
+                        image:'assets/apolo/img/home/Illustrations-03.jpg',
                         text:'Entregado a tu puerta' 
                     },
                     {
                         active:false,
                         tabBody:'#certificado',
-                        image:'assets/apolo/img/home/iconos-02.png',
+                        image:'assets/apolo/img/home/Illustrations-04.jpg',
                         text:'Inspeccionado y certificado' 
                     }
                 ],

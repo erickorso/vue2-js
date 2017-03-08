@@ -805,10 +805,12 @@ body {
 				width: 200px;
 				margin: 10px;
 				a {
+					padding: 0;
+					border: none !important;
 					&.active, 
 					&:hover{
 						img {
-							.transform(scale(1.1));
+							.transform(scale(1.1)translateY(-10px));
 							opacity: 1;
 						}
 						h3 {
@@ -824,7 +826,8 @@ body {
 						width: auto;
 						height: auto;
 						min-height: 60;
-						padding: 10px;
+						padding: 0;
+						max-width: 180px;
 						.transition(0.4s);
 						opacity: 0.6;
 					}
@@ -836,6 +839,7 @@ body {
 						padding: 10px;
 						border-top: solid 4px @kavak_color1;
 						opacity: 0.6;
+						.transition(0.4s);
 					}
 				}
 			}
